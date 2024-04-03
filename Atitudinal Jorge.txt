@@ -1,0 +1,57 @@
+CREATE TABLE
+  musicas (
+    id BIGINT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+    caminho VARCHAR(60) UNIQUE NOT NULL,
+    titulo VARCHAR(120) NOT NULL,
+    duracao INT NOT NULL, --Em segundos
+    data_postagem DATE NOT NULL,
+    poster VARCHAR(60) NOT NULL,
+    cantor_id BIGINT NOT NULL,
+    compositor_id BIGINT NOT NULL
+  );
+
+CREATE TABLE
+  artistas_compositores (
+    id BIGINT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+    nome VARCHAR(120) NOT NULL,
+    data_nascimento DATE NOT NULL,
+    data_falecimento DATE,
+    tipo VARCHAR(10) NOT NULL, 
+    biografia TEXT,
+    musica_mais_conhecida VARCHAR(120) NOT NULL
+  );
+
+CREATE TABLE
+  usuarios (
+    id BIGINT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+    email VARCHAR(100) UNIQUE NOT NULL,
+    senha VARCHAR(100) NOT NULL,
+    nome_completo VARCHAR(200) NOT NULL,
+    idade INT NOT NULL,
+    generos_preferidos TEXT,
+    data_criacao_perfil DATE NOT NULL,
+    data_ultimo_acesso TIMESTAMP,
+    celular VARCHAR(13),
+    plano_id BIGINT UNIQUE NOT NULL
+  );
+
+INSERT INTO
+  musicas (caminho, titulo, duracao, data_postagem, poster, cantor_id, compositor_id)
+VALUES
+  ('music1.mp3','Music 1', 240, '2023-11-14', 'poster1.png', 1, 1),
+  ( 'music2.mp3', 'Music 2', 300, '2023-11-15', 'poster2.png', 2, 2),
+  ( 'music3.mp3', 'Music 3', 180, '2023-11-16', 'poster3.png', 1, 2);
+
+INSERT INTO
+  artistas_compositores (nome,data_nascimento,tipo,biografia,musica_mais_conhecida)
+VALUES
+  ('Seu Jorge', '1980-01-01', 'Artista', 'Biografia do Seu Jorge', 'Música 1'),
+  ('MC Kevin', '1985-05-05', 'Artista', 'Biografia do MC Kevin', 'Música 2'),
+  ('LiL Nas X', '1990-10-10', 'Compositor','Biografia do LiL Nas X', 'Música 3');
+
+INSERT INTO
+  usuarios (email,senha,nome_completo,idade,generos_preferidos,data_criacao_perfil,data_ultimo_acesso,celular,plano_id)
+VALUES
+  ('user1@email.com', 'senha123', 'Usuario 1', 25, 'funk,  Rock', '2023-06-17', '2023-11-17 20:50:52', '123456788910', 1),
+  ('user2@email.com', 'senha1234', 'Usuario 2', 24,'Jazz, pop', '2023-02-18', '2023-12-18 10:04:23', '12345678910', 2),
+  ('user3@email.com', 'senha12345', 'Usuario 3', 23, 'pagode, samba','2022-01-19', '2023-11-19 14:22:13', '123456778910', 3);
